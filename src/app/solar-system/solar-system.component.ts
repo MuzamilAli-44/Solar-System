@@ -13,7 +13,6 @@ import * as THREE from 'three';
 export class SolarSystemComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (typeof window !== 'undefined') {
-
       const mercury_radius = 50;
       const venus_radius = 100;
       const earth_radius = 150;
@@ -24,9 +23,6 @@ export class SolarSystemComponent implements AfterViewInit {
       const neptune_radius = 400;
 
       const moon_radius = 30;
-
-
-
 
       // Creating Scene
       const scene = new THREE.Scene();
