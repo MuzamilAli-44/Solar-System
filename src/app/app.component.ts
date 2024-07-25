@@ -12,3 +12,7 @@ import { SolarSystemComponent } from "./solar-system/solar-system.component";
 export class AppComponent {
   title = 'Solar_System';
 }
+
+
+
+     
