@@ -158,8 +158,8 @@ export class SolarSystemComponent implements AfterViewInit {
         map: mercury_texture,
       });
       const mercury = new THREE.Mesh(mercury_geometry, mercury_material);
-      mercury_orbit.add(mercury);
       mercury_orbit.position.set(mercury_radius, 0, 0);
+      mercury_orbit.add(mercury);
 
       // Creating mercury Orbit Line
       const mercury_orbit_points = [];
@@ -181,8 +181,8 @@ export class SolarSystemComponent implements AfterViewInit {
         mercury_orbit_geometry,
         orbit_material
       );
-      scene.add(mercury_orbit_line);
-
+      sun.add(mercury_orbit_line);
+/*
       // Venus
       // venus Orbit object
       const venus_orbit = new THREE.Group();
@@ -420,27 +420,34 @@ export class SolarSystemComponent implements AfterViewInit {
         neptune_orbit_geometry,
         orbit_material
       );
-      scene.add(neptune_orbit_line);
+      scene.add(neptune_orbit_line);  */
 
       camera.position.z = 150; // Adjusted to make the earth visible
 
       //Ray Caster
+      // // Raycaster and pointer for hovering effect
+      // const raycaster = new THREE.Raycaster();
+      // const pointer = new THREE.Vector2();
+      // const objectsToHover = [
+      //   sun,
+      //   moon,
+      //   mercury,
+      //   venus,
+      //   earth,
+      //   mars,
+      //   jupiter,
+      //   saturn,
+      //   uranus,
+      //   neptune,
+      // ];
+      // const originalScales = objectsToHover.map((obj) => obj.scale.clone());
+
+      
       // Raycaster and pointer for hovering effect
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
-      const objectsToHover = [
-        sun,
-        moon,
-        mercury,
-        venus,
-        earth,
-        mars,
-        jupiter,
-        saturn,
-        uranus,
-        neptune,
-      ];
-      const originalScales = objectsToHover.map((obj) => obj.scale.clone());
+
+      const originalScales = new Map<THREE.Object3D, THREE.Vector3>();
 
       function onPointerMove(event: MouseEvent) {
         // calculate pointer position in normalized device coordinates
@@ -454,17 +461,21 @@ export class SolarSystemComponent implements AfterViewInit {
         raycaster.setFromCamera(pointer, camera);
 
         // calculate objects intersecting the picking ray
-        const intersects = raycaster.intersectObjects(objectsToHover);
+        const intersects = raycaster.intersectObjects(scene.children, true);
 
-        objectsToHover.forEach((obj, index) => {
-          if (intersects.find((intersect) => intersect.object === obj)) {
-            obj.scale.set(
-              1.1 * originalScales[index].x,
-              1.1 * originalScales[index].y,
-              1.1 * originalScales[index].z
-            );
-          } else {
-            obj.scale.copy(originalScales[index]);
+        scene.traverse((obj) => {
+          if (obj instanceof THREE.Mesh) {
+            if (!originalScales.has(obj)) {
+              originalScales.set(obj, obj.scale.clone());
+            }
+            obj.scale.copy(originalScales.get(obj) as THREE.Vector3);
+          }
+        });
+
+        intersects.forEach((intersect) => {
+          const obj = intersect.object;
+          if (obj instanceof THREE.Mesh) {
+            obj.scale.multiplyScalar(3);
           }
         });
 
@@ -479,18 +490,25 @@ export class SolarSystemComponent implements AfterViewInit {
       function animate() {
         sun_orbit.rotation.y += 0.004;
         earth_orbit.rotation.y += 0.05;
+        mercury_orbit.rotation.y += 0.05;
+        // venus_orbit.rotation.y += 0.08;
+        // mars_orbit.rotation.y += 0.03;
+        // jupiter_orbit.rotation.y += 0.02;
+        // saturn_orbit.rotation.y += 0.01;
+        // uranus_orbit.rotation.y += 0.009;
+        // neptune_orbit.rotation.y += 0.008;
 
         earth.rotation.y += 0.01;
         moon.rotation.x += 0.01;
         moon.rotation.y += 0.01;
 
-        mercury.rotation.y += 0.09;
-        venus.rotation.y += 0.08;
-        mars.rotation.y += 0.03;
-        jupiter.rotation.y += 0.02;
-        saturn.rotation.y += 0.01;
-        uranus.rotation.y += 0.009;
-        neptune.rotation.y += 0.008;
+       // mercury.rotation.y += 0.09;
+        // venus.rotation.y += 0.08;
+        // mars.rotation.y += 0.03;
+        // jupiter.rotation.y += 0.02;
+        // saturn.rotation.y += 0.01;
+        // uranus.rotation.y += 0.009;
+        // neptune.rotation.y += 0.008;
 
         renderer.render(scene, camera);
       }
