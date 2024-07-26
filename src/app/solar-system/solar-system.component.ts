@@ -51,8 +51,8 @@ export class SolarSystemComponent implements AfterViewInit {
       scene.background = background;
 
       // Sun Orbit object
-      const sun_orbit = new THREE.Group();
-      scene.add(sun_orbit);
+      // const sun_orbit = new THREE.Group();
+      // scene.add(sun_orbit);
 
       // Creating Sun
       const sun_texture = new THREE.TextureLoader().load(
@@ -63,11 +63,7 @@ export class SolarSystemComponent implements AfterViewInit {
         map: sun_texture,
       });
       const sun = new THREE.Mesh(sun_geometry, sun_material);
-      sun_orbit.add(sun);
-
-      // Earth Orbit object
-      const earth_orbit = new THREE.Group();
-      sun_orbit.add(earth_orbit);
+      scene.add(sun);
 
       // Creating Earth
       const earth_texture = new THREE.TextureLoader().load(
@@ -78,8 +74,12 @@ export class SolarSystemComponent implements AfterViewInit {
         map: earth_texture,
       });
       const earth = new THREE.Mesh(earth_geometry, earth_material);
+
+      // Earth Orbit object
+      const earth_orbit = new THREE.Group();
       earth_orbit.add(earth);
-      earth_orbit.position.set(earth_radius, 0, 0);
+      scene.add(earth_orbit);
+      earth.position.set(earth_radius, 0, 0);
 
       // Creating Earth Orbit Line
       const earth_orbit_points = [];
@@ -104,10 +104,6 @@ export class SolarSystemComponent implements AfterViewInit {
       );
       scene.add(earth_orbit_line);
 
-      // Moon Orbit object
-      const moon_orbit = new THREE.Group();
-      earth_orbit.add(moon_orbit);
-
       // Creating Moon
       const moon_texture = new THREE.TextureLoader().load(
         '../../assets/moon.jpg'
@@ -117,8 +113,12 @@ export class SolarSystemComponent implements AfterViewInit {
         map: moon_texture,
       });
       const moon = new THREE.Mesh(moon_geometry, moon_material);
-      moon_orbit.position.set(moon_radius, 0, 0);
+
+      // Moon Orbit object
+      const moon_orbit = new THREE.Group();
       moon_orbit.add(moon);
+      scene.add(moon_orbit);
+      moon.position.set(moon_radius, 0, 0);
 
       // Creating Moon Orbit Line
       const moon_orbit_points = [];
@@ -145,9 +145,6 @@ export class SolarSystemComponent implements AfterViewInit {
       // All other planets
 
       // Mercury
-      // mercury Orbit object
-      const mercury_orbit = new THREE.Group();
-      sun_orbit.add(mercury_orbit);
 
       // Creating mercury
       const mercury_texture = new THREE.TextureLoader().load(
@@ -158,8 +155,12 @@ export class SolarSystemComponent implements AfterViewInit {
         map: mercury_texture,
       });
       const mercury = new THREE.Mesh(mercury_geometry, mercury_material);
-      mercury_orbit.position.set(mercury_radius, 0, 0);
+
+      // mercury Orbit object
+      const mercury_orbit = new THREE.Group();
       mercury_orbit.add(mercury);
+      scene.add(mercury_orbit);
+      mercury.position.set(mercury_radius, 0, 0);
 
       // Creating mercury Orbit Line
       const mercury_orbit_points = [];
@@ -182,11 +183,8 @@ export class SolarSystemComponent implements AfterViewInit {
         orbit_material
       );
       sun.add(mercury_orbit_line);
-/*
+
       // Venus
-      // venus Orbit object
-      const venus_orbit = new THREE.Group();
-      sun_orbit.add(venus_orbit);
 
       // Creating venus
       const venus_texture = new THREE.TextureLoader().load(
@@ -197,7 +195,11 @@ export class SolarSystemComponent implements AfterViewInit {
         map: venus_texture,
       });
       const venus = new THREE.Mesh(venus_geometry, venus_material);
+
+      // venus Orbit object
+      const venus_orbit = new THREE.Group();
       venus_orbit.add(venus);
+      scene.add(venus_orbit);
       venus_orbit.position.set(venus_radius, 0, 0);
 
       // Creating venus Orbit Line
@@ -224,10 +226,6 @@ export class SolarSystemComponent implements AfterViewInit {
 
       // Mars
 
-      // mars Orbit object
-      const mars_orbit = new THREE.Group();
-      sun_orbit.add(mars_orbit);
-
       // Creating mars
       const mars_texture = new THREE.TextureLoader().load(
         '../../assets/mars.jpg'
@@ -237,7 +235,11 @@ export class SolarSystemComponent implements AfterViewInit {
         map: mars_texture,
       });
       const mars = new THREE.Mesh(mars_geometry, mars_material);
+
+      // mars Orbit object
+      const mars_orbit = new THREE.Group();
       mars_orbit.add(mars);
+      scene.add(mars_orbit);
       mars_orbit.position.set(mars_radius, 0, 0);
 
       // Creating mars Orbit Line
@@ -264,10 +266,6 @@ export class SolarSystemComponent implements AfterViewInit {
 
       // Jupiter
 
-      // jupiter Orbit object
-      const jupiter_orbit = new THREE.Group();
-      sun_orbit.add(jupiter_orbit);
-
       // Creating jupiter
       const jupiter_texture = new THREE.TextureLoader().load(
         '../../assets/jupiter.jpg'
@@ -277,7 +275,11 @@ export class SolarSystemComponent implements AfterViewInit {
         map: jupiter_texture,
       });
       const jupiter = new THREE.Mesh(jupiter_geometry, jupiter_material);
+
+      // jupiter Orbit object
+      const jupiter_orbit = new THREE.Group();
       jupiter_orbit.add(jupiter);
+      scene.add(jupiter_orbit);
       jupiter_orbit.position.set(jupiter_radius, 0, 0);
 
       // Creating jupiter Orbit Line
@@ -304,10 +306,6 @@ export class SolarSystemComponent implements AfterViewInit {
 
       // Saturn
 
-      // saturn Orbit object
-      const saturn_orbit = new THREE.Group();
-      sun_orbit.add(saturn_orbit);
-
       // Creating saturn
       const saturn_texture = new THREE.TextureLoader().load(
         '../../assets/saturn.jpg'
@@ -317,7 +315,11 @@ export class SolarSystemComponent implements AfterViewInit {
         map: saturn_texture,
       });
       const saturn = new THREE.Mesh(saturn_geometry, saturn_material);
+
+      // saturn Orbit object
+      const saturn_orbit = new THREE.Group();
       saturn_orbit.add(saturn);
+      scene.add(saturn_orbit);
       saturn_orbit.position.set(saturn_radius, 0, 0);
 
       // Creating saturn Orbit Line
@@ -344,10 +346,6 @@ export class SolarSystemComponent implements AfterViewInit {
 
       // Uranus
 
-      // uranus Orbit object
-      const uranus_orbit = new THREE.Group();
-      sun_orbit.add(uranus_orbit);
-
       // Creating uranus
       const uranus_texture = new THREE.TextureLoader().load(
         '../../assets/uranus.jpg'
@@ -357,7 +355,11 @@ export class SolarSystemComponent implements AfterViewInit {
         map: uranus_texture,
       });
       const uranus = new THREE.Mesh(uranus_geometry, uranus_material);
+
+      // uranus Orbit object
+      const uranus_orbit = new THREE.Group();
       uranus_orbit.add(uranus);
+      scene.add(uranus_orbit);
       uranus_orbit.position.set(uranus_radius, 0, 0);
 
       // Creating uranus Orbit Line
@@ -384,10 +386,6 @@ export class SolarSystemComponent implements AfterViewInit {
 
       // Neptune
 
-      // neptune Orbit object
-      const neptune_orbit = new THREE.Group();
-      sun_orbit.add(neptune_orbit);
-
       // Creating neptune
       const neptune_texture = new THREE.TextureLoader().load(
         '../../assets/neptune.jpg'
@@ -397,7 +395,11 @@ export class SolarSystemComponent implements AfterViewInit {
         map: neptune_texture,
       });
       const neptune = new THREE.Mesh(neptune_geometry, neptune_material);
+
+      // neptune Orbit object
+      const neptune_orbit = new THREE.Group();
       neptune_orbit.add(neptune);
+      scene.add(neptune_orbit);
       neptune_orbit.position.set(neptune_radius, 0, 0);
 
       // Creating neptune Orbit Line
@@ -420,29 +422,10 @@ export class SolarSystemComponent implements AfterViewInit {
         neptune_orbit_geometry,
         orbit_material
       );
-      scene.add(neptune_orbit_line);  */
+      scene.add(neptune_orbit_line);
 
       camera.position.z = 150; // Adjusted to make the earth visible
 
-      //Ray Caster
-      // // Raycaster and pointer for hovering effect
-      // const raycaster = new THREE.Raycaster();
-      // const pointer = new THREE.Vector2();
-      // const objectsToHover = [
-      //   sun,
-      //   moon,
-      //   mercury,
-      //   venus,
-      //   earth,
-      //   mars,
-      //   jupiter,
-      //   saturn,
-      //   uranus,
-      //   neptune,
-      // ];
-      // const originalScales = objectsToHover.map((obj) => obj.scale.clone());
-
-      
       // Raycaster and pointer for hovering effect
       const raycaster = new THREE.Raycaster();
       const pointer = new THREE.Vector2();
@@ -488,27 +471,28 @@ export class SolarSystemComponent implements AfterViewInit {
 
       // Render the scene and camera to animate it
       function animate() {
-        sun_orbit.rotation.y += 0.004;
-        earth_orbit.rotation.y += 0.05;
-        mercury_orbit.rotation.y += 0.05;
-        // venus_orbit.rotation.y += 0.08;
-        // mars_orbit.rotation.y += 0.03;
-        // jupiter_orbit.rotation.y += 0.02;
-        // saturn_orbit.rotation.y += 0.01;
-        // uranus_orbit.rotation.y += 0.009;
-        // neptune_orbit.rotation.y += 0.008;
+        sun.rotateY(0.01);
+        earth_orbit.rotateY(0.05);
+        mercury_orbit.rotateY(0.09);
+        venus_orbit.rotateY(0.08);
+        mars_orbit.rotateY(0.03);
+        jupiter_orbit.rotateY(0.02);
+        saturn_orbit.rotateY(0.01);
+        uranus_orbit.rotateY(0.009);
+        neptune_orbit.rotateY(0.008);
 
-        earth.rotation.y += 0.01;
         moon.rotation.x += 0.01;
         moon.rotation.y += 0.01;
+        moon_orbit.rotateY(0.01);
 
-       // mercury.rotation.y += 0.09;
-        // venus.rotation.y += 0.08;
-        // mars.rotation.y += 0.03;
-        // jupiter.rotation.y += 0.02;
-        // saturn.rotation.y += 0.01;
-        // uranus.rotation.y += 0.009;
-        // neptune.rotation.y += 0.008;
+        earth.rotation.y += 0.05;
+        mercury.rotation.y += 0.09;
+        venus.rotation.y += 0.08;
+        mars.rotation.y += 0.03;
+        jupiter.rotation.y += 0.02;
+        saturn.rotation.y += 0.01;
+        uranus.rotation.y += 0.009;
+        neptune.rotation.y += 0.008;
 
         renderer.render(scene, camera);
       }
