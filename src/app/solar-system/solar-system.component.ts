@@ -424,6 +424,57 @@ export class SolarSystemComponent implements AfterViewInit {
 
       camera.position.z = 150; // Adjusted to make the earth visible
 
+      //Ray Caster
+      // Raycaster and pointer for hovering effect
+      const raycaster = new THREE.Raycaster();
+      const pointer = new THREE.Vector2();
+      const objectsToHover = [
+        sun,
+        moon,
+        mercury,
+        venus,
+        earth,
+        mars,
+        jupiter,
+        saturn,
+        uranus,
+        neptune,
+      ];
+      const originalScales = objectsToHover.map((obj) => obj.scale.clone());
+
+      function onPointerMove(event: MouseEvent) {
+        // calculate pointer position in normalized device coordinates
+        // (-1 to +1) for both components
+        pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+      }
+
+      function render() {
+        // update the picking ray with the camera and pointer position
+        raycaster.setFromCamera(pointer, camera);
+
+        // calculate objects intersecting the picking ray
+        const intersects = raycaster.intersectObjects(objectsToHover);
+
+        objectsToHover.forEach((obj, index) => {
+          if (intersects.find((intersect) => intersect.object === obj)) {
+            obj.scale.set(
+              1.1 * originalScales[index].x,
+              1.1 * originalScales[index].y,
+              1.1 * originalScales[index].z
+            );
+          } else {
+            obj.scale.copy(originalScales[index]);
+          }
+        });
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(render);
+      }
+
+      window.addEventListener('pointermove', onPointerMove);
+      render();
+
       // Render the scene and camera to animate it
       function animate() {
         sun_orbit.rotation.y += 0.004;
