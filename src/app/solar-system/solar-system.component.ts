@@ -46,13 +46,13 @@ export class SolarSystemComponent implements AfterViewInit {
 
       // Adding background image
       const background = new THREE.TextureLoader().load(
-        '../../assets/background.jpg'
+        '../../assets/solarsystem/background.jpg'
       );
       scene.background = background;
 
       // Creating Sun
       const sun_texture = new THREE.TextureLoader().load(
-        '../../assets/sun.jpg'
+        '../../assets/solarsystem/sun.jpg'
       );
       const sun_geometry = new THREE.SphereGeometry(20, 32, 16);
       const sun_material = new THREE.MeshStandardMaterial({
@@ -114,7 +114,7 @@ export class SolarSystemComponent implements AfterViewInit {
 
       // Create Earth-Moon system
       const moon_texture = new THREE.TextureLoader().load(
-        '../../assets/moon.jpg'
+        '../../assets/solarsystem/moon.jpg'
       );
       const moon_geometry = new THREE.SphereGeometry(9, 32, 16);
       const moon_material = new THREE.MeshStandardMaterial({
